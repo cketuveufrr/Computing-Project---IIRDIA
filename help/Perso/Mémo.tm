@@ -70,6 +70,12 @@
 
     <item>Que veut dire SDK ?
   </itemize>
+
+  <section|Soucis >
+
+  <\itemize>
+    <item>Seuils de bail
+  </itemize>
 </body>
 
 <\initial>
@@ -80,12 +86,47 @@
 
 <\references>
   <\collection>
-    <associate|auto-1|<tuple|1|?|..\\..\\..\\AppData\\Roaming\\TeXmacs\\texts\\scratch\\no_name_8.tm>>
-    <associate|auto-2|<tuple|1|?|..\\..\\..\\AppData\\Roaming\\TeXmacs\\texts\\scratch\\no_name_8.tm>>
-    <associate|auto-3|<tuple|2|?|..\\..\\..\\AppData\\Roaming\\TeXmacs\\texts\\scratch\\no_name_8.tm>>
-    <associate|auto-4|<tuple|1|?|..\\..\\..\\AppData\\Roaming\\TeXmacs\\texts\\scratch\\no_name_8.tm>>
-    <associate|auto-5|<tuple|2|?|..\\..\\..\\AppData\\Roaming\\TeXmacs\\texts\\scratch\\no_name_8.tm>>
-    <associate|auto-6|<tuple|1|?|..\\..\\..\\AppData\\Roaming\\TeXmacs\\texts\\scratch\\no_name_8.tm>>
-    <associate|auto-7|<tuple|2|?|..\\..\\..\\AppData\\Roaming\\TeXmacs\\texts\\scratch\\no_name_8.tm>>
+    <associate|auto-1|<tuple|1|1>>
+    <associate|auto-2|<tuple|1|1>>
+    <associate|auto-3|<tuple|2|1>>
+    <associate|auto-4|<tuple|1|1>>
+    <associate|auto-5|<tuple|2|1>>
+    <associate|auto-6|<tuple|1|1>>
+    <associate|auto-7|<tuple|2|1>>
+    <associate|auto-8|<tuple|3|?>>
   </collection>
 </references>
+
+<\auxiliary>
+  <\collection>
+    <\associate|toc>
+      <vspace*|2fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|font-size|<quote|1.19>|1<space|2spc>Cahier
+      de charges> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-1><vspace|1fn>
+
+      <with|par-left|<quote|1tab>|1<space|2spc>Final
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-2>>
+
+      <with|par-left|<quote|1tab>|2<space|2spc>Changer/améliorer
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-3>>
+
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|1<space|2spc>Comprendre>
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-4><vspace|0.5fn>
+
+      <vspace*|2fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|font-size|<quote|1.19>|2<space|2spc>>
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-5><vspace|1fn>
+
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|1<space|2spc>RVR
+      Oak D> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-6><vspace|0.5fn>
+
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|2<space|2spc>Autre>
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-7><vspace|0.5fn>
+    </associate>
+  </collection>
+</auxiliary>
