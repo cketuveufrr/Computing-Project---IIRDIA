@@ -69,11 +69,36 @@
     <item>Prepare launch files under <with|font-family|tt|launch/>.
   </enumerate>
 
+  <subsection|Launching Scripts>
+
+  <todo|Add my own launching scripts to help>
+
+  <subsection|Bashrc>
+
+  For the master :\ 
+
+  <verbatim|sudo ip link set eth0 up && sudo ip addr flush dev eth0 && sudo
+  ip addr add 10.66.66.1/24 dev eth0 && export
+  ROS_MASTER_URI=http://10.66.66.1:11311 && export ROS_IP=10.66.66.1>
+
+  For the slave :\ 
+
+  <verbatim|sudo ip link set eth0 up && sudo ip addr flush dev eth0 && sudo
+  ip addr add 10.66.66.2/24 dev eth0 && export
+  ROS_MASTER_URI=http://10.66.66.1:11311 && export ROS_IP=10.66.66.2>
+
+  ! Do not forget to flush because it caused me trouble not to
+
   <section|Sensor and Module Configuration>
+
+  <subsection|Launch>
+
+  To remap the names for each RPI <todo|on doit mettre dans un seul node tout
+  ça ou alors ça ne servirait à rien ?>
 
   <subsection|Drivers>
 
-  \;
+  Sync vs Async and problems corresponding
 
   <subsection|LiDAR>
 
@@ -224,21 +249,25 @@
 <\references>
   <\collection>
     <associate|auto-1|<tuple|1|2>>
-    <associate|auto-10|<tuple|4.6|3>>
-    <associate|auto-11|<tuple|4.7|3>>
-    <associate|auto-12|<tuple|4.8|4>>
-    <associate|auto-13|<tuple|4.9|4>>
-    <associate|auto-14|<tuple|5|4>>
-    <associate|auto-15|<tuple|6|4>>
-    <associate|auto-16|<tuple|7|?>>
+    <associate|auto-10|<tuple|4.4|3>>
+    <associate|auto-11|<tuple|4.5|3>>
+    <associate|auto-12|<tuple|4.6|4>>
+    <associate|auto-13|<tuple|4.7|4>>
+    <associate|auto-14|<tuple|4.8|4>>
+    <associate|auto-15|<tuple|4.9|4>>
+    <associate|auto-16|<tuple|4.10|?>>
+    <associate|auto-17|<tuple|5|?>>
+    <associate|auto-18|<tuple|6|?>>
+    <associate|auto-19|<tuple|7|?>>
     <associate|auto-2|<tuple|2|2>>
     <associate|auto-3|<tuple|3|2>>
-    <associate|auto-4|<tuple|4|2>>
-    <associate|auto-5|<tuple|4.1|2>>
-    <associate|auto-6|<tuple|4.2|3>>
-    <associate|auto-7|<tuple|4.3|3>>
-    <associate|auto-8|<tuple|4.4|3>>
-    <associate|auto-9|<tuple|4.5|3>>
+    <associate|auto-4|<tuple|3.1|2>>
+    <associate|auto-5|<tuple|3.2|2>>
+    <associate|auto-6|<tuple|4|3>>
+    <associate|auto-7|<tuple|4.1|3>>
+    <associate|auto-8|<tuple|4.2|3>>
+    <associate|auto-9|<tuple|4.3|3>>
+    <associate|menur4r|<tuple|3.2|?>>
   </collection>
 </references>
 

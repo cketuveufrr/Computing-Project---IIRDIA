@@ -1,0 +1,27 @@
+<launch>
+  <arg name="odometry"    default="/rvr1/odom"/> <!-- Nommenclature décidée -->
+  <arg name="scan_topic"    default="/rvr1/scan"/>
+  
+  <node pkg="gmapping" type="slam_gmapping" name="gmapping" output="screen">
+    <!-- Topics -->
+    <param name="odom_frame"         value="odom" />
+    <param name="map_frame"          value="map" />
+    <param name="base_frame"         value="base_link" />
+    <!-- Paramètres du mémoire d'Edwige Loems -->
+    <param name="delta"              value="0.1" />      
+    <param name="maxRange"           value="10.0" />  
+    <param name="maxUrange"          value="0.4" />
+    <param name="sigma"              value="0.05" />    
+    <param name="particles"          value="30" /> 
+    <param name="xmin"               value="-5.0" />
+    <param name="ymin"               value="-5.0" />
+    <param name="xmax"               value=" 5.0" />
+    <param name="ymax"               value=" 5.0" />
+    <param name="delta"              value="0.05" />    
+    <param name="map_update_interval" value="2.0" />  
+
+    <!-- Redirections de topics -->
+    <remap from="scan"  to="$(arg scan_topic)" /> <!-- Topic des scans, voir plus haut -->
+    <remap from="odom"  to="$(arg odom_topic)" />
+  </node>
+</launch>
