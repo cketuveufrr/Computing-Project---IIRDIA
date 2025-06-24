@@ -11,9 +11,9 @@ class BallisticRandomWalk(DriverLogger):
     LIDAR_TOPIC         = f'/{NAMESPACE}/scan'
     FLAG_TOPIC          = f'/{NAMESPACE}/flag'
     WHEELS_TOPIC        = f'/{NAMESPACE}/wheels_speed'
-    OBSTACLE_THRESHOLD  = 0.4
-    FORWARD_SPEED       = 0.2
-    HALF_ANGLE_RAD      = math.radians(30)
+    OBSTACLE_THRESHOLD  = 0.4 # distance minimale pour considérer qu'il y a un obstacle
+    FORWARD_SPEED       = 0.2 # vitesse de déplacement en m/s
+    HALF_ANGLE_RAD      = math.radians(30) # angle de détection des obstacles (30° de chaque côté)
 
     def __init__(self):
         # init ROS
@@ -28,7 +28,7 @@ class BallisticRandomWalk(DriverLogger):
         self.min_front  = float('inf')
         # RVR hardware (optionnel : tu peux garder ou commenter)
         self.rvr = SpheroRvrObserver()
-        self.log("Réveil du RVR…")
+        self.log("Démarrage du RVR…")
         self.rvr.wake()
         time.sleep(2)
         self.rvr.reset_yaw()
@@ -39,6 +39,7 @@ class BallisticRandomWalk(DriverLogger):
         rospy.spin()
 
     def lidar_cb(self, msg: LaserScan):
+        """ Callback pour le LIDAR, calcule la distance minimale devant le RVR. """
         dmin = float('inf')
         ang = msg.angle_min
         for d in msg.ranges:
@@ -52,6 +53,7 @@ class BallisticRandomWalk(DriverLogger):
         self.min_front = dmin
 
     def control_cb(self, event):
+        """ Callback de contrôle, gère l'état du RVR. """
         now = time.time()
         # on signale qu’on est « alive » / en exploration
         self.flag_pub.publish(Bool(data=True))
@@ -59,7 +61,7 @@ class BallisticRandomWalk(DriverLogger):
         if self.state == 'FORWARD':
             if self.min_front < self.OBSTACLE_THRESHOLD:
                 # obstacle → on pivote aléatoirement
-                dur = random.uniform(0.5, 2.0)
+                dur = random.uniform(0.5, 2.0) # durée de rotation aléatoire
                 self.turn_dir = random.choice([-1, 1])
                 self.turn_end = now + dur
                 self.state    = 'TURN'
@@ -83,7 +85,7 @@ class BallisticRandomWalk(DriverLogger):
         # publication ROS
         msg = Float32MultiArray(data=[left, right])
         self.wheels_pub.publish(msg)
-        # pilotage direct du RVR (optionnel)
+        # todo : origine de mes soucis de conflict avec sphero_sdk ?
         self.rvr.drive_tank_si_units(
             left_velocity  = left,
             right_velocity = right,
