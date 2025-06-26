@@ -1,0 +1,20 @@
+<!-- Map Sharing -->
+<launch>
+    <arg name="robot_id"        default="rvr1" />
+    <arg name="distance_thresh" default="1.0" />
+    <arg name="rmse_thresh"     default="8.0" />
+    <arg name="local_map_path"
+         default="$(find mon_package)/maps/map.pgm" />
+
+    <param name="robot_id"         value="$(arg robot_id)"         type="string"/>
+    <param name="distance_thresh" value="$(arg distance_thresh)" type="double"/>
+    <param name="rmse_thresh"     value="$(arg rmse_thresh)"     type="double"/>
+    <param name="local_map_path"  value="$(arg local_map_path)"  type="string"/>
+
+    <node pkg="rvr_ros" 
+          type="map_sharing_node.py" 
+          name="map_sharing_node" 
+          output="screen"
+          respawn="false">
+    </node>
+</launch>

@@ -1,0 +1,90 @@
+<!-- Launch file for GMapping-->
+<launch>
+  <arg name="robot_ns" default="rvr1"/>
+  <arg name="use_sim_time"     default="false"/>
+  <arg name="odom_topic"       default="/$(arg robot_ns)/odom"/>
+  <arg name="scan_topic"       default="/$(arg robot_ns)/scan"/>
+  <arg name="imu_topic"        default="/$(arg robot_ns)/imu"/>
+  <arg name="corrected_topic"  default="/$(arg robot_ns)/imu_corrected"/>
+  <arg name="odom_corrected_topic" default="/$(arg robot_ns)/odom_corrected"/>
+  <arg name="odom_frame"       default="odom"/>
+  <arg name="base_frame"       default="base_link"/>
+  <arg name="laser_frame"      default="laser"/>
+  <arg name="map_frame"        default="map"/>
+
+  <!-- Creating common namespace because we will need multiple rvr-->
+  <group ns="$(arg robot_ns)">
+  <node pkg="rvr_ros" type="odom_to_base_link.py" name="odom_tf_broadcaster" output="screen">
+    <param name="odom_topic" value="$(arg odom_topic)"/>
+    <param name="scan_topic" value="$(arg scan_topic)"/>
+    <param name="imu_topic" value="$(arg imu_topic)"/>
+    <param name="corrected_topic" value="$(arg corrected_topic)"/>
+    <param name="odom_corrected_topic" value="$(arg odom_corrected_topic)"/>
+    <param name="odom_frame" value="$(arg odom_frame)"/>
+    <param name="base_frame" value="$(arg base_frame)"/>
+    <param name="laser_frame" value="$(arg laser_frame)"/>
+    <param name="map_frame" value="$(arg map_frame)"/>
+  </node>
+
+  </node>
+
+  <node pkg="tf" type="static_transform_publisher" name="base_link_to_footprint"
+        args="0 0 .2  0 0 0 1  base_link  base_footprint  100"/>
+  
+  <node pkg="tf" type="static_transform_publisher" name="footprint_to_laser"
+        args="0.0 0.0 0.2  0.0 0.0 0.0  base_footprint  laser_frame  40"/> 
+
+  <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping2" output="screen">
+    <param name="map_update_interval" value="0.5"/>
+    <param name="base_frame" value="base_footprint"/>
+    <param name="odom_frame" value="odom"/>
+    <param name="provide_odom_frame" value="true"/>
+    <param name="map_update_interval"  value="0.05"/>
+    
+    <param name="maxUrange" value="10.0"/>
+    <param name="linearUpdate" value="0.010"/>
+    <param name="angularUpdate" value="0.09"/>
+    <param name="temporalUpdate" value="1.0"/>
+    
+    <param name="xmin" value="-1.0"/>
+    <param name="xmax" value="1.0"/>
+    <param name="ymin" value="-1.0"/>
+    <param name="ymax" value="1.0"/>
+    <param name="delta" value="0.02"/>
+    <param name="maxRange" value="1"/>
+    <param name="maxUrange" value="0.4"/>
+    
+    <param name="delta" value="0.02"/>
+    <param name="maxRange" value="1"/>
+    <param name="maxUrange" value="0.4"/>
+                        
+    <param name="sigma" value="0.05"/>
+    <param name="kernelSize" value="1"/>
+    <param name="lstep" value="0.05"/>
+    <param name="astep" value="0.02"/>
+    <param name="iterations" value="5"/>
+    <param name="lsigma" value="0.075"/>
+    <param name="ogain" value="3.0"/>
+    <param name="lskip" value="300"/>
+    <param name="minimumScore" value="50.0"/>
+    <param name="srr" value="0.01"/>
+    <param name="srt" value="0.02"/>
+    <param name="str" value="0.01"/>
+    <param name="stt" value="0.02"/>
+    <param name="resampleThreshold" value="0.5"/>
+    <param name="particles" value="10"/>
+    <param name="llsamplerange" value="0.01"/>
+    <param name="llsamplestep" value="0.01"/>
+    <param name="lasamplerange" value="0.005"/>
+    <param name="lasamplestep" value="0.005"/>
+    <param name="occ_thresh" value="0.080"/>
+    <param name="transform_publish_period" value="0.05"/>
+    
+    <remap from="map" to="/$(arg robot_ns)/map"/>
+    <remap from="scan" to="/$(arg robot_ns)/scan"/>
+    <remap from="map_metadata" to="/$(arg robot_ns)/map_metadata"/>
+  </node>
+  </group>
+  <node pkg="map_server" type="map_saver" name="map_saver" output="screen"
+        args="-f $(env HOME)/maps/$(arg robot_ns)_map map:=/$(arg robot_ns)/map"/>
+</launch>

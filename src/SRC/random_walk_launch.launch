@@ -1,0 +1,7 @@
+<!--Launching a RW for a single robot-->
+<launch>
+ <node pkg="rvr_ros" type="random_walk.py" name="random_walker" output="screen">
+    <param name="cmd_vel_topic" value="/rvr1/cmd_vel"/>
+    <param name="lidar_topic" value="/rvr1/scan"/>
+</node>
+</launch>

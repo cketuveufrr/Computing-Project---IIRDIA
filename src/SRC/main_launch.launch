@@ -1,0 +1,26 @@
+<launch>
+  <!-- Declare the robot name, defaulting to "rvr1" -->
+  <arg name="robot_name" default="rvr1" />
+
+  <group ns="$(arg robot_name)">
+    <!-- Launching the rvr_driver -->
+    <node pkg="rvr_ros" 
+          type="rvr_driver.py" 
+          name="driver_sync"
+          output="screen">
+      <!-- Renaming all topics -->
+      <remap from="/rvr/ambient_light"  to="/$(arg robot_name)/ambient_light"/>
+      <remap from="/rvr/ground_color"   to="/$(arg robot_name)/ground_color"/>
+      <remap from="/rvr/imu"            to="/$(arg robot_name)/imu"/>
+      <remap from="/rvr/odom"           to="/$(arg robot_name)/odom"/>
+      <remap from="/rvr/point_cloud"    to="/$(arg robot_name)/point_cloud"/>
+      <remap from="/rvr/wheels_speed"   to="/$(arg robot_name)/wheels_speed"/>
+      <remap from="/cmd_vel"            to="/$(arg robot_name)/cmd_vel"/>
+      <remap from="/rvr/rgb_leds"       to="/$(arg robot_name)/rgb_leds"/>
+    </node>
+ 
+    <include file="$(find ydlidar_ros_driver)/launch/X4.launch">
+      <remap from="/scan"      to="/$(arg robot_name)/scan"/>
+    </include>
+  </group>
+</launch>
