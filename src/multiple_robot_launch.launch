@@ -1,0 +1,54 @@
+<launch>
+  <arg name="distance_thresh" default="1.0"/>
+  <arg name="rmse_thresh"     default="8.0"/>
+
+  <!-- Robot 1 -->
+  <group ns="rvr1">
+    <!-- Lancement du random walk, si nécessaire -->
+    <node pkg="rvr_ros"
+          type="random_walk.py"
+          name="random_walker"
+          output="screen">
+      <param name="cmd_vel_topic" value="/rvr1/cmd_vel"/>
+      <param name="lidar_topic"   value="/rvr1/scan"/>
+    </node>
+
+    <!-- Lancement du partage de carte -->
+    <node pkg="rvr_ros"
+          type="map_sharing_node.py"
+          name="map_sharing_node"
+          output="screen">
+      <param name="robot_id"         value="rvr1"                type="string"/>
+      <param name="distance_thresh"  value="$(arg distance_thresh)" type="double"/>
+      <param name="rmse_thresh"      value="$(arg rmse_thresh)"     type="double"/>
+      <param name="local_map_path"   value="$(find mon_package)/maps/rvr1/local_map.pgm" type="string"/>
+    </node>
+  </group>
+
+  <!-- Robot 2 -->
+  <group ns="rvr2">
+    <node pkg="rvr_ros"
+          type="random_walk.py"
+          name="random_walker"
+          output="screen">
+      <param name="cmd_vel_topic" value="/rvr2/cmd_vel"/>
+      <param name="lidar_topic"   value="/rvr2/scan"/>
+    </node>
+
+    <node pkg="mon_package"
+          type="map_sharing_node.py"
+          name="map_sharing_node"
+          output="screen">
+      <param name="robot_id"         value="rvr2"                type="string"/>
+      <param name="distance_thresh"  value="$(arg distance_thresh)" type="double"/>
+      <param name="rmse_thresh"      value="$(arg rmse_thresh)"     type="double"/>
+      <param name="local_map_path"   value="$(find mon_package)/maps/rvr2/local_map.pgm" type="string"/>
+    </node>
+  </group>
+
+  <!-- TF statique entre rvr1 et rvr2 : offset X=0.2 m, pas de rotation -->
+  <node pkg="tf"
+        type="static_transform_publisher"
+        name="rvr1_to_rvr2"
+        args="0.2 0 0  0 0 0  1  rvr1  rvr2  100"/>
+</launch>
